@@ -24,6 +24,11 @@ class TestTeam_null(unittest.TestCase):
         self.assertEqual(result[0].entity_type, 'US_SSN')
 
         # negative test case
+        # too short
+        test_str = '123-45-67'
+        result = analyze_text(test_str, ['US_SSN'])
+        # expect an empty list
+        self.assertEqual(len(result), 0)
 
         # context ehancement
 
