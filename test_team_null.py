@@ -12,6 +12,20 @@ class TestTeam_null(unittest.TestCase):
 
     def test_us_ssn(self):
         """Test US_SSN functionality"""
+        # positive test case
+        prefix = '123'
+        middle = '12'
+        suffix = '1234'
+        test_str = prefix + '-' + middle + '-' + suffix
+        result = analyze_text(test_str, ['US_SSN'])
+        # expect a result
+        self.assertGreater(len(result), 0, 'Result is empty')
+        # check correcte entity_type
+        self.assertEqual(result[0].entity_type, 'US_SSN')
+
+        # negative test case
+
+        # context ehancement
 
 
 if __name__ == '__main__':
