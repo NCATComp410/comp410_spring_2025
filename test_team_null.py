@@ -1,7 +1,6 @@
 """Unit test file for team null"""
 import unittest
-from pii_scan import analyze_text, show_aggie_pride  # noqa 
-import sys
+from pii_scan import analyze_text, show_aggie_pride  # noqa
 
 
 class TestTeam_null(unittest.TestCase):
@@ -22,6 +21,19 @@ class TestTeam_null(unittest.TestCase):
         self.assertGreater(len(result), 0, 'Result is empty')
         # check correcte entity_type
         self.assertEqual(result[0].entity_type, 'US_SSN')
+        # check the score
+        self.assertEqual(result[0].score, 0.5)
+
+        # context enhancement
+        # add context word
+        test_str = 'ssn ' + test_str
+        result = analyze_text(test_str, ['US_SSN'])
+        # expect a result
+        self.assertGreater(len(result), 0, 'Result is empty')
+        # check correcte entity_type
+        self.assertEqual(result[0].entity_type, 'US_SSN')
+        # check the score
+        self.assertEqual(result[0].score, 0.85)
 
         # negative test case
         # too short
@@ -30,7 +42,6 @@ class TestTeam_null(unittest.TestCase):
         # expect an empty list
         self.assertEqual(len(result), 0)
 
-        # context ehancement
 
 
 if __name__ == '__main__':
