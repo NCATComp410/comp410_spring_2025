@@ -19,7 +19,7 @@ class TestTeam_null(unittest.TestCase):
         result = analyze_text(test_str, ['US_SSN'])
         # expect a result
         self.assertGreater(len(result), 0, 'Result is empty')
-        # check correcte entity_type
+        # check correct entity_type
         self.assertEqual(result[0].entity_type, 'US_SSN')
         # check the score
         self.assertEqual(result[0].score, 0.5)
@@ -30,7 +30,7 @@ class TestTeam_null(unittest.TestCase):
         result = analyze_text(test_str, ['US_SSN'])
         # expect a result
         self.assertGreater(len(result), 0, 'Result is empty')
-        # check correcte entity_type
+        # check correct entity_type
         self.assertEqual(result[0].entity_type, 'US_SSN')
         # check the score
         self.assertEqual(result[0].score, 0.85)
