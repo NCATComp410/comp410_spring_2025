@@ -1,0 +1,44 @@
+Entities,Team
+ABA_ROUTING_NUMBER,410 Developers
+AU_ABN,410 Developers
+AU_ACN,410 Developers
+AU_MEDICARE,410 Developers
+AU_TFN,410 Developers
+,
+CREDIT_CARD,Chaos Coordinators
+CRYPTO,Chaos Coordinators
+DATE_TIME,Chaos Coordinators
+EMAIL_ADDRESS,Chaos Coordinators
+MEDICAL_LICENSE,Chaos Coordinators
+,
+ES_NIE,CMD
+ES_NIF,CMD
+FI_PERSONAL_IDENTITY_CODE,CMD
+IBAN_CODE,CMD
+IP_ADDRESS,CMD
+,
+IN_AADHAAR,Code Crafters
+IN_PAN,Code Crafters
+IN_PASSPORT,Code Crafters
+IN_VEHICLE_REGISTRATION,Code Crafters
+IN_VOTER,Code Crafters
+,
+IT_DRIVER_LICENSE,Not Like Us
+IT_FISCAL_CODE,Not Like Us
+IT_IDENTITY_CARD,Not Like Us
+IT_PASSPORT,Not Like Us
+IT_VAT_CODE,Not Like Us
+,
+URL,Tech Titans
+US_BANK_NUMBER,Tech Titans
+US_DRIVER_LICENSE,Tech Titans
+US_ITIN,Tech Titans
+US_PASSPORT,Tech Titans
+,
+PHONE_NUMBER,Peak Performers
+LOCATION,Peak Performers
+PERSON,Peak Performers
+UK_NHS,Peak Performers
+UK_NINO,Peak Performers
+,
+US_SSN,NULL
