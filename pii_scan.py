@@ -128,8 +128,8 @@ def read_data() -> list:
                 raise RuntimeError("SECRET not found in .env file")
 
     # Construct the URL from the API key
-    url = requests.get('https://drive.google.com/uc?export=download&id=1Madj8otKjwwOO353nL_' + secret,
-                       timeout=10)
+    header = 'https://drive.google.com/uc?export=download&id=1Madj8otKjwwOO353nL_'
+    url = requests.get(header + secret, timeout=10)
 
     # Return the data as a list of lines
     return url.text.split('\n')
