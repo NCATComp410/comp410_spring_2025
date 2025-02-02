@@ -12,9 +12,8 @@ from presidio_analyzer.predefined_recognizers import (ItDriverLicenseRecognizer,
                                                       EsNifRecognizer,
                                                       PlPeselRecognizer,
                                                       FiPersonalIdentityCodeRecognizer,
-                                                      AuTfnRecognizer,
-                                                      AbaRoutingRecognizer,
-                                                      AuAcnRecognizer)
+                                                      AbaRoutingRecognizer)
+
 from presidio_anonymizer import AnonymizerEngine
 import requests
 
@@ -48,10 +47,8 @@ registry.add_recognizer(EsNieRecognizer(supported_language='en'))
 registry.add_recognizer(EsNifRecognizer(supported_language='en'))
 registry.add_recognizer(PlPeselRecognizer(supported_language='en'))
 registry.add_recognizer(FiPersonalIdentityCodeRecognizer(supported_language='en'))
-registry.add_recognizer(AuTfnRecognizer(supported_language='en'))
-registry.add_recognizer(AuAcnRecognizer(supported_language='en'))
-# Add support for ABA_ROUTING_NUMBER
 registry.add_recognizer(AbaRoutingRecognizer(supported_language='en'))
+
 
 # Create an analyzer object
 # log_decision_process=True will log the decision process for debugging
@@ -94,13 +91,18 @@ def anonymize_data(data: list) -> None:
                 print(f'ID:{i}:Anonymized: {anonymize_text(item, [])}')
 
 
-def analyze_text(text: str, entity_list: list, ) -> list[RecognizerResult]:
+def analyze_text(text: str, entity_list: list,
+                 show_supported=False) -> list[str] | list[RecognizerResult]:
     """
     Analyze the text using the entity list
     :param text: the text to be analyzed
     :param entity_list: the list of entities to be analyzed
            https://microsoft.github.io/presidio/supported_entities/
+    :param show_supported: show the supported entities
     """
+    # Show all entities that can be detected for debugging
+    if show_supported:
+        return analyzer.get_supported_entities()
     # Call analyzer to get results
     results = analyzer.analyze(text=text,
                                entities=entity_list,
@@ -134,5 +136,5 @@ def read_data() -> list:
 
 
 if __name__ == '__main__':
-    show_aggie_pride()
-    anonymize_data(read_data())
+    print(show_aggie_pride())
+    # anonymize_data(read_data())
