@@ -11,7 +11,15 @@ class TestTeam_not_like_us(unittest.TestCase):
 
     def test_it_driver_license(self):
         """Test IT_DRIVER_LICENSE functionality"""
+        # Will Walton: Positive Test Case
+        test_string = "License number: BA1234567Z"
+        result = analyze_text(test_string, ["IT_DRIVER_LICENSE"])
 
+        #Unittest to check that it found something
+        self.assertTrue(len(result)>0, "Result is empty - license not detected")
+        self.assertEqual(result[0].entity_type, "IT_DRIVER_LICENSE")
+
+        #Negative Test Case 
     def test_it_fiscal_code(self):
         """Test IT_FISCAL_CODE functionality"""
 
