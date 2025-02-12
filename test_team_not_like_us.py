@@ -15,6 +15,21 @@ class TestTeam_not_like_us(unittest.TestCase):
     def test_it_fiscal_code(self):
         """Test IT_FISCAL_CODE functionality"""
 
+        # positive test case
+        start = 'RSSMRA85'
+        end = 'M01H501Z'
+        test_string = ''.join([start,end])
+        result = analyze_text(test_string, ['IT_FISCAL_CODE'])
+
+        # result
+        self.assertGreater(len(result), 0)
+
+        # checking the correct entity_type
+        self.assertEqual(result[0].entity_type, 'IT_FISCAL_CODE')
+
+        # negative test case
+
+
     def test_it_identity_card(self):
         """Test IT_IDENTITY_CARD functionality"""
 
