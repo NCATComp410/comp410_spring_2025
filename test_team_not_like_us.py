@@ -28,6 +28,11 @@ class TestTeam_not_like_us(unittest.TestCase):
         self.assertEqual(result[0].entity_type, 'IT_FISCAL_CODE')
 
         # negative test case
+        test_string2 = 'XBCDFR12A34Z567X'
+        result2 = analyze_text(test_string2, ['IT_FISCAL_CODE'])
+
+        # most likely an empty list
+        self.assertEqual(len(result2), 0)
 
 
     def test_it_identity_card(self):
