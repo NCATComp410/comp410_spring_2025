@@ -1,6 +1,6 @@
 """Unit test file for team not_like_us"""
 import unittest
-from pii_scan import analyze_text, show_aggie_pride  # noqa 
+from pii_scan import analyze_text, show_aggie_pride  # noqa
 
 
 class TestTeam_not_like_us(unittest.TestCase):
@@ -23,9 +23,17 @@ class TestTeam_not_like_us(unittest.TestCase):
 
         # result
         self.assertGreater(len(result), 0)
-
         # checking the correct entity_type
         self.assertEqual(result[0].entity_type, 'IT_FISCAL_CODE')
+        # score checker
+        self.assertEqual(result[0].score, 0.3)
+
+        # enhancement
+        test_string = 'cf' + test_string
+        result = analyze_text(test_string, ['IT_FISCAL_CODE'])
+        self.assertGreater(len(result), 0)
+        self.assertEqual(result[0].entity_type, 'IT_FISCAL_CODE')
+        self.assertEqual(result[0].score, 0.6499999999999999)
 
         # negative test case
         test_string2 = 'XBCDFR12A34Z567X'
