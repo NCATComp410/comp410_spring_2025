@@ -45,7 +45,7 @@ class TestTeam_not_like_us(unittest.TestCase):
         self.assertEqual(result[0].entity_type, 'IT_VAT_CODE')
 
         #check the score
-        self.assertGreaterEqual(result[0].score,0.05)
+        self.assertGreater(result[0].score,0.5)
 
 
         # negative test case
@@ -56,9 +56,6 @@ class TestTeam_not_like_us(unittest.TestCase):
         # expect an empty list
         self.assertEqual(len(result),0)
 
-
-
-        
 
 if __name__ == '__main__':
     unittest.main()
