@@ -28,9 +28,22 @@ class TestTeam_not_like_us(unittest.TestCase):
         result = analyze_text(test_str,['IT_VAT_CODE'])
         #expect a result
         self.assertGreater(len(result),0,'Result is empty')
-
         #check correct entity type
         self.assertEqual(result[0].entity_type, 'IT_VAT_CODE')
+        #check the score
+        self.assertEqual(result[0].score,0.5)
+
+        # context enhancement
+        # add context word
+        test_str = test_str + 'iva'
+        result = analyze_text(test_str,['IT_VAT_CODE'])
+        #expect a result
+        self.assertEquallen(result),0,'Result is empty')
+        #check correct entity type
+        self.assertEqual(result[0].entity_type, 'IT_VAT_CODE')
+        #check the score
+        self.assertEqual(result[0].score,0.05)
+
 
         # negative test case
         #invalid vat number
@@ -38,8 +51,13 @@ class TestTeam_not_like_us(unittest.TestCase):
         result = analyze_text(test_str,['IT_VAT_CODE'])
         # expect an empty list
         self.assertEqual(len(result),0)
+        #check correct entity type
+        self.assertEqual(result[0].entity_type, 'IT_VAT_CODE')
+        #check the score
+        self.assertEqual(result[0].score,0.05)
 
-        # context enhancement
+
+        
 
 if __name__ == '__main__':
     unittest.main()
