@@ -23,7 +23,18 @@ class TestTeam_not_like_us(unittest.TestCase):
 
     def test_it_vat_code(self):
         """Test IT_VAT_CODE functionality"""
+        # positive test case
+        test_str = '17893729974'
+        result = analyze_text(test_str,['IT_VAT_CODE'])
+        #expect a result
+        self.assertGreater(len(result),0,'Result is empty')
 
+        #check correct entity type
+        self.assertEqual(result[0].entity_type, 'IT_VAT_CODE')
+
+        # negative test case
+
+        # context enhancement
 
 if __name__ == '__main__':
     unittest.main()
