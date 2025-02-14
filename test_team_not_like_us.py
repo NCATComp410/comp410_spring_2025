@@ -38,7 +38,7 @@ class TestTeam_not_like_us(unittest.TestCase):
         test_str = test_str + 'iva'
         result = analyze_text(test_str,['IT_VAT_CODE'])
         #expect a result
-        self.assertEquallen(result),0,'Result is empty')
+        self.assertEqual(len(result),0,'Result is empty')
         #check correct entity type
         self.assertEqual(result[0].entity_type, 'IT_VAT_CODE')
         #check the score
