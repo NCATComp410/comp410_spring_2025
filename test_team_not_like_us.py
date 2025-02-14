@@ -33,6 +33,11 @@ class TestTeam_not_like_us(unittest.TestCase):
         self.assertEqual(result[0].entity_type, 'IT_VAT_CODE')
 
         # negative test case
+        #invalid vat number
+        test_str = '00000000000'
+        result = analyze_text(test_str,['IT_VAT_CODE'])
+        # expect an empty list
+        self.assertEqual(len(result),0)
 
         # context enhancement
 
