@@ -11,8 +11,13 @@ class TestTeam_not_like_us(unittest.TestCase):
 
     def test_it_driver_license(self):
         """Test IT_DRIVER_LICENSE functionality"""
-        # Will Walton: Positive Test Case
-        test_string = "License number: BA1234567Z"
+        # Will Walton: Positive Test Case Refinements
+        prefix = "BA"
+        numbers = "1234567"
+        suffix = "Z"
+
+        license_num = prefix + numbers + suffix #Build Valid Format
+        test_string = f"License number: {license_num}"
         result = analyze_text(test_string, ["IT_DRIVER_LICENSE"])
 
         #Unittest to check that it found something
