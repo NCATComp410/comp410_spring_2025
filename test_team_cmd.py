@@ -25,6 +25,10 @@ class TestTeam_cmd(unittest.TestCase):
         self.assertEqual(result[0].entity_type, 'ES_NIF')
 
         #negative test case
+        #not enough numbers
+        test_str = "345274A"
+        result = analyze_text(test_str,["ES_NIF"])
+        self.assertEqual(len(result), 0)
 
         #context enhancement
 
