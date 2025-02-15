@@ -14,6 +14,19 @@ class TestTeam_cmd(unittest.TestCase):
 
     def test_es_nif(self):
         """Test ES_NIF functionality"""
+        #positve test case
+        nums = "12345678"
+        let = "Z"
+        test_str = "-".join([nums, let])
+        result = analyze_text(test_str, ['ES_NIF'])
+        #expect a result
+        self.assertGreater(len(result), 0, "result is")
+        #check correct entity type
+        self.assertEqual(result[0].entity_type, 'ES_NIF')
+
+        #negative test case
+
+        #context enhancement
 
     def test_fi_personal_identity_code(self):
         """Test FI_PERSONAL_IDENTITY_CODE functionality"""
