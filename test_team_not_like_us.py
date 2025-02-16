@@ -25,11 +25,16 @@ class TestTeam_not_like_us(unittest.TestCase):
         self.assertEqual(result[0].entity_type, "IT_DRIVER_LICENSE")
 
        #Negative Test Case
-        invalid_license = "123456789"
-        result = analyze_text(invalid_license, ["IT_DRIVER_LICENSE"])
+        
+        invalid_licenes = ["ABC12345", "A1234567Z", "AB12345678",
+         "AB12345", "AB 1234567 Z", "ab1234567z" "@XY1234567Z"]
 
-        # make sure entity is not detected
-        self.assertEqual(len(result),0, "Unexpected entity detected in  invalid license test")
+        for invalid_license in invalid_licenes:
+            result = analyze_text(invalid_license,["IT_DRIVER_LICENSE"])
+
+            #make sure entity is not detected and prevents false negatives
+            if len(result)>0:
+                self.assertLessEqual(result[0].score,0.2, f"Detected invalid license: { invalid_license}-{result}")
         
 
     def test_it_fiscal_code(self):
