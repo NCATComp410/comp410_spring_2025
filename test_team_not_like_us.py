@@ -26,7 +26,7 @@ class TestTeam_not_like_us(unittest.TestCase):
 
        #Negative Test Case
         
-        invalid_licenes = ["ABC12345", "A1234567Z", "AB12345678",
+        invalid_licenes = ["123456789","ABC12345", "A1234567Z", "AB12345678",
          "AB12345", "AB 1234567 Z", "ab1234567z" "@XY1234567Z"]
 
         for invalid_license in invalid_licenes:
