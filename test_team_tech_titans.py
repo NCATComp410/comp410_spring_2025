@@ -25,6 +25,8 @@ class TestTeam_tech_titans(unittest.TestCase):
         # negative test case
         test_bank_str = '123485'
         result = analyze_text(test_bank_str, ['US_BANK_NUMBER'])
+        #expect an empty list
+        self.assertEqual(len(result), 0)
 
         #context enhancement
 
