@@ -24,7 +24,14 @@ class TestTeam_not_like_us(unittest.TestCase):
         self.assertTrue(len(result)>0, "Result is empty - license not detected")
         self.assertEqual(result[0].entity_type, "IT_DRIVER_LICENSE")
 
-        #Negative Test Case 
+       #Negative Test Case
+        invalid_license = "123456789"
+        result = analyze_text(invalid_license, ["IT_DRIVER_LICENSE"])
+
+        # make sure entity is not detected
+        self.assertEqual(len(result),0)
+        
+
     def test_it_fiscal_code(self):
         """Test IT_FISCAL_CODE functionality"""
 
