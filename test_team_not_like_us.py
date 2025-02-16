@@ -29,7 +29,7 @@ class TestTeam_not_like_us(unittest.TestCase):
         result = analyze_text(invalid_license, ["IT_DRIVER_LICENSE"])
 
         # make sure entity is not detected
-        self.assertEqual(len(result),0)
+        self.assertEqual(len(result),0, "Unexpected entity detected in  invalid license test")
         
 
     def test_it_fiscal_code(self):
