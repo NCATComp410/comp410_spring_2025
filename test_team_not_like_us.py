@@ -26,11 +26,29 @@ class TestTeam_not_like_us(unittest.TestCase):
         self.assertGreater(len(results),0, "Result Is Empty")
         # check correct entity_type
         self.assertEqual(results[0].entity_type,"IT_IDENTITY_CARD" )
-       
-       # negative test case
-        
+        #check score
+        self.assertEqual(results[0].score, 0.01)
         # context enhancement
-
+        # add context words
+        test_str += 'documento'
+        test_str += 'carta'
+        test_str += 'identità'
+        test_str += 'elettronica'
+        test_str += 'cie'
+        test_str += 'documento'
+        test_str += 'riconoscimento'
+        test_str += 'espatrio'
+        # expect a result
+        self.assertGreater(len(results),0, "Result Is Empty")
+        # check correct entity_type
+        self.assertEqual(results[0].entity_type,"IT_IDENTITY_CARD" )
+        #check score
+        self.assertEqual(results[0].score, 0.01)
+       # negative test case
+        test_str = '23ad67888'
+        results = analyze_text(test_str,["IT_IDENTITY_CARD"]) 
+        #expect empty list
+        self.assertEqual(len(results),0, "Result Is Empty")
     def test_it_passport(self):
         """Test IT_PASSPORT functionality"""
 
