@@ -89,6 +89,38 @@ class TestTeam_not_like_us(unittest.TestCase):
 
     def test_it_vat_code(self):
         """Test IT_VAT_CODE functionality"""
+        # positive test case
+        test_str = '17893729974'
+        result = analyze_text(test_str,['IT_VAT_CODE'])
+        #expect a result
+        self.assertGreater(len(result),0,'Result is empty')
+        #check correct entity type
+        self.assertEqual(result[0].entity_type, 'IT_VAT_CODE')
+        #Check score
+        self.assertGreaterEqual(result[0].score,0.5)
+        
+        # context enhancement
+        # add context word
+        test_str = 'piva ' + test_str
+        result = analyze_text(test_str,['IT_VAT_CODE'])
+
+        #expect a result
+        self.assertGreater(len(result),0,'Result is empty')
+
+        #check correct entity type
+        self.assertEqual(result[0].entity_type, 'IT_VAT_CODE')
+
+        #check the score, making sure it increases from the previous test
+        self.assertGreaterEqual(result[0].score,1.0)
+
+
+        # negative test case
+        #invalid vat number
+        test_str = '00000000000'
+        result = analyze_text(test_str,['IT_VAT_CODE'])
+
+        # expect an empty list
+        self.assertEqual(len(result),0)
 
 
 if __name__ == '__main__':
