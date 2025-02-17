@@ -17,6 +17,12 @@ class TestTeam_chaos_coordinators(unittest.TestCase):
 
     def test_date_time(self):
         """Test DATE_TIME functionality"""
+        # positive test case
+        # expect result
+        # check correct entity type
+        # negative test case
+        # too short
+        # context enhancement
 
     def test_email_address(self):
         """Test EMAIL_ADDRESS functionality"""
