@@ -44,8 +44,8 @@ class TestTeam_not_like_us(unittest.TestCase):
         #check correct entity type
         self.assertEqual(result[0].entity_type, 'IT_VAT_CODE')
 
-        #check the score
-        self.assertGreater(result[0].score,0.5)
+        #check the score, making sure it increases from the previous test
+        self.assertGreaterEqual(result[0].score,1.0)
 
 
         # negative test case
