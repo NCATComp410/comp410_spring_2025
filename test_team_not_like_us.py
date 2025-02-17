@@ -70,6 +70,19 @@ class TestTeam_not_like_us(unittest.TestCase):
 
     def test_it_identity_card(self):
         """Test IT_IDENTITY_CARD functionality"""
+        # positive test case
+        prefix= 'AA'
+        suffix= '1234567'
+        test_str = ' '.join((prefix,suffix))
+        results = analyze_text(test_str,["IT_IDENTITY_CARD"]) 
+        # expect a result
+        self.assertGreater(len(results),0, "Result Is Empty")
+        # check correct entity_type
+        self.assertEqual(results[0].entity_type,"IT_IDENTITY_CARD" )
+       
+       # negative test case
+        
+        # context enhancement
 
     def test_it_passport(self):
         """Test IT_PASSPORT functionality"""
