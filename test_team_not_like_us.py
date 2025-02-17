@@ -20,6 +20,20 @@ class TestTeam_not_like_us(unittest.TestCase):
 
     def test_it_passport(self):
         """Test IT_PASSPORT functionality"""
+        # positive test case
+        prefix = 'AB'
+        middle = '123'
+        suffix = '4567'
+        test_str = prefix + middle + suffix
+        result = analyze_text(test_str, ['IT_PASSPORT'])
+        #Expect a result
+        self.assertGreater(len(result), 0, 'Result is empty')
+        # Check correct entity type
+        self.assertEqual(result[0].entity_type, "IT_PASSPORT")
+
+        # negative test case
+
+        # context enhancement
 
     def test_it_vat_code(self):
         """Test IT_VAT_CODE functionality"""
