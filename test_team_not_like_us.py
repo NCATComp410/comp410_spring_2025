@@ -1,6 +1,6 @@
 """Unit test file for team not_like_us"""
 import unittest
-from pii_scan import analyze_text, show_aggie_pride  # noqa 
+from pii_scan import analyze_text, show_aggie_pride  # noqa
 
 
 class TestTeam_not_like_us(unittest.TestCase):
@@ -30,10 +30,26 @@ class TestTeam_not_like_us(unittest.TestCase):
         self.assertGreater(len(result), 0, 'Result is empty')
         # Check correct entity type
         self.assertEqual(result[0].entity_type, "IT_PASSPORT")
-
-        # negative test case
+        #Check the score
+        self.assertEqual(result[0].score, 0.01)
 
         # context enhancement
+        # add context work
+        test_str = test_str + 'passaporto'
+        test_str = test_str + 'elettronico'
+        test_str = test_str + 'italiano'
+        test_str = test_str + 'viaggio'
+        test_str = test_str + 'viaggiare'
+        test_str = test_str + 'estero'
+        test_str = test_str + 'documento'
+        test_str = test_str + 'dogana'
+
+        # negative test case
+        # too short
+        test_str = 'AB12345'
+        result = analyze_text(test_str, ['IT_PASSPORT'])
+        # expect an empty list
+        self.assertEqual(len(result), 0)
 
     def test_it_vat_code(self):
         """Test IT_VAT_CODE functionality"""
