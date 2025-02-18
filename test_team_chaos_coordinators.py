@@ -15,6 +15,20 @@ class TestTeam_chaos_coordinators(unittest.TestCase):
     def test_crypto(self):
         """Test CRYPTO functionality"""
 
+        #positive case
+        test_str = '1Lbcfr7sAHTD9CgdQo3HTMTkV8LK4ZnX71'
+        result = analyze_text(test_str, ['CRYPTO'])
+
+        #expect a result
+        self.assertGreater(len(result), 0, 'Result is empty')
+
+        #check correct entity_type
+        self.assertEqual(result[0].entity_type, 'CRYPTO')
+        
+        #negative case
+
+        #context enhancement
+
     def test_date_time(self):
         """Test DATE_TIME functionality"""
 
