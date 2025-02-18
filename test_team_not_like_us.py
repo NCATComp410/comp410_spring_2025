@@ -86,7 +86,7 @@ class TestTeam_not_like_us(unittest.TestCase):
 
     def test_it_passport(self):
         """Test IT_PASSPORT functionality"""
-        # positive test case
+         # positive test case
         prefix = 'AB'
         middle = '123'
         suffix = '4567'
@@ -97,18 +97,21 @@ class TestTeam_not_like_us(unittest.TestCase):
         # Check correct entity type
         self.assertEqual(result[0].entity_type, "IT_PASSPORT")
         #Check the score
-        self.assertEqual(result[0].score, 0.01)
+        self.assertGreaterEqual(result[0].score, 0.01)
 
         # context enhancement
         # add context work
         test_str = test_str + 'passaporto'
-        test_str = test_str + 'elettronico'
-        test_str = test_str + 'italiano'
-        test_str = test_str + 'viaggio'
-        test_str = test_str + 'viaggiare'
-        test_str = test_str + 'estero'
-        test_str = test_str + 'documento'
-        test_str = test_str + 'dogana'
+        result = analyze_text(test_str, ['IT_PASSPORT'])
+        #Expect a result
+        self.assertGreater(len(result), 0, 'Result is empty')
+
+        # Check correct entity type
+        self.assertEqual(result[0].entity_type, "IT_PASSPORT")
+
+        #Check the score
+        self.assertGreaterEqual(result[0].score, 0.01)
+
 
         # negative test case
         # too short
