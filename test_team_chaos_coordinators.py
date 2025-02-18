@@ -26,7 +26,10 @@ class TestTeam_chaos_coordinators(unittest.TestCase):
         self.assertEqual(result[0].entity_type, 'CRYPTO')
         
         #negative case
-
+        test_str = '2234567'
+        result = analyze_text(test_str, ['CRYPTO'])
+        # expect an empty list
+        self.assertEqual(len(result), 0)
         #context enhancement
 
     def test_date_time(self):
