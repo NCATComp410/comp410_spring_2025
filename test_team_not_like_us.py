@@ -105,11 +105,10 @@ class TestTeam_not_like_us(unittest.TestCase):
         # New comment for new pull request
     def test_it_passport(self):
         """Test IT_PASSPORT functionality"""
-         # positive test case
-        prefix = 'AB'
-        middle = '123'
-        suffix = '4567'
-        test_str = prefix + middle + suffix
+        # positive test case
+        prefix = 'AA'
+        middle = '1234567'
+        test_str = prefix + middle
         result = analyze_text(test_str, ['IT_PASSPORT'])
         #Expect a result
         self.assertGreater(len(result), 0, 'Result is empty')
@@ -120,7 +119,7 @@ class TestTeam_not_like_us(unittest.TestCase):
 
         # context enhancement
         # add context work
-        test_str = test_str + 'passaporto'
+        test_str = 'passaporto ' + test_str
         result = analyze_text(test_str, ['IT_PASSPORT'])
         #Expect a result
         self.assertGreater(len(result), 0, 'Result is empty')
@@ -130,7 +129,6 @@ class TestTeam_not_like_us(unittest.TestCase):
 
         #Check the score
         self.assertGreaterEqual(result[0].score, 0.01)
-
 
         # negative test case
         # too short
