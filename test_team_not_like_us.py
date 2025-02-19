@@ -105,6 +105,37 @@ class TestTeam_not_like_us(unittest.TestCase):
         # New comment for new pull request
     def test_it_passport(self):
         """Test IT_PASSPORT functionality"""
+        # positive test case
+        prefix = 'AA'
+        middle = '1234567'
+        test_str = prefix + middle
+        result = analyze_text(test_str, ['IT_PASSPORT'])
+        #Expect a result
+        self.assertGreater(len(result), 0, 'Result is empty')
+        # Check correct entity type
+        self.assertEqual(result[0].entity_type, "IT_PASSPORT")
+        #Check the score
+        self.assertGreaterEqual(result[0].score, 0.01)
+
+        # context enhancement
+        # add context work
+        test_str = 'passaporto ' + test_str
+        result = analyze_text(test_str, ['IT_PASSPORT'])
+        #Expect a result
+        self.assertGreater(len(result), 0, 'Result is empty')
+
+        # Check correct entity type
+        self.assertEqual(result[0].entity_type, "IT_PASSPORT")
+
+        #Check the score
+        self.assertGreaterEqual(result[0].score, 0.01)
+
+        # negative test case
+        # too short
+        test_str = 'AB12345'
+        result = analyze_text(test_str, ['IT_PASSPORT'])
+        # expect an empty list
+        self.assertEqual(len(result), 0)
 
     def test_it_vat_code(self):
         """Test IT_VAT_CODE functionality"""
