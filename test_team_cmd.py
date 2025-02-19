@@ -11,6 +11,20 @@ class TestTeam_cmd(unittest.TestCase):
 
     def test_es_nie(self):
         """Test ES_NIE functionality"""
+        #positive test case *returning empty list
+        prefix = 'X'
+        middle = '1234567'
+        suffix = 'A'
+        test_str = prefix + middle + suffix
+        result = analyze_text(test_str, ['ES_NIE'])
+            #expect value in result list
+        self.assertGreater(len(result),0, 'Result is empty')
+            #checking entity type is actually first elements
+        self.assertEqual(result[0].entity_type, 'ES_NIE')
+
+        #negative test case
+
+        #context enhancement
 
     def test_es_nif(self):
         """Test ES_NIF functionality"""
