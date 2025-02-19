@@ -11,7 +11,22 @@ class TestTeam_chaos_coordinators(unittest.TestCase):
 
     def test_credit_card(self):
         """Test CREDIT_CARD functionality"""
+        #positive test case
+        prefix = '4111'
+        middleOne = '1111'
+        middleTwo = '1111'
+        suffix = '1111'
+        test_str = '-'.join([prefix, middleOne, middleTwo, suffix])
+        result = analyze_text(test_str, ['CREDIT_CARD'])
+        #expect a result
+        self.assertIsNotNone(result)
+        #check correct entity type
+        self.assertEqual(result[0].entity_type, 'CREDIT_CARD')
 
+        #negative test case
+
+        #context enhancement
+        
     def test_crypto(self):
         """Test CRYPTO functionality"""
 
