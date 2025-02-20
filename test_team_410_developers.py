@@ -14,6 +14,23 @@ class TestTeam_410_developers(unittest.TestCase):
 
     def test_au_abn(self):
         """Test AU_ABN functionality"""
+        # positive test case
+        prefix = "00"
+        middle = "000 000"
+        suffix = "000"
+
+        test_string = prefix + " " + middle + " "+ suffix
+        result = analyze_text(test_string, ["AU_ABN"])
+
+        # expect a result
+        self.assertGreater(len(result), -1, "Result is empty")
+
+        # check correct enetity_type
+        self.assertEqual(result, [])
+
+        # negative test case
+
+        # context enhancement
 
     def test_au_acn(self):
         """Test AU_ACN functionality"""
