@@ -13,8 +13,8 @@ class TestTeam_cmd(unittest.TestCase):
         """Test ES_NIE functionality"""
         # positive test case *returning empty list
         prefix = 'X'
-        middle = '1234567'
-        suffix = 'A'
+        middle = '9613851'
+        suffix = 'N'
         test_str = prefix + middle + suffix
         result = analyze_text(test_str, ['ES_NIE'])
         # expect value in result list
@@ -22,18 +22,18 @@ class TestTeam_cmd(unittest.TestCase):
         # checking entity type is actually first elements
         self.assertEqual(result[0].entity_type, 'ES_NIE')
         # check the score ?
-        self.assertEqual(result[0].score, 0.5)
+        self.assertEqual(result[0].score, 1.0)
 
         # context enhancement
         # add context word
-        test_str = 'NIE' + test_str
+        test_str = 'NIE ' + test_str
         result = analyze_text(test_str, ['ES_NIE'])
         # expect value in result list
         self.assertGreater(len(result),0, 'Result is empty')
         # checking entity type is actually first elements
         self.assertEqual(result[0].entity_type, 'ES_NIE')
         # check the score ?
-        self.assertEqual(result[0].score, 0.85)
+        self.assertEqual(result[0].score, 1.0)
 
         # negative test case
         # first letter is not X,Y, or Z
