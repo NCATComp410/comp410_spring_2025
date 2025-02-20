@@ -56,7 +56,7 @@ class TestTeam_cmd(unittest.TestCase):
 
             self.assertGreater(len(results),0) #asserting a full list for a detected code
 
-            self.assertGreaterEqual(results[0].score, 0.5) #valid IBAN
+            self.assertEqual(results[0].score, 1) #valid IBAN
             self.assertEqual(results[0].entity_type, 'IBAN_CODE') #validating entity type
 
         for x in neg_test_cases:
