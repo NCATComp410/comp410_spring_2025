@@ -21,6 +21,24 @@ class TestTeam_tech_titans(unittest.TestCase):
     def test_us_itin(self):
         """Test US_ITIN functionality"""
 
+        # TODO: positive test case
+        pref = '902'
+        mid = '63'
+        suff = '3013'
+        test_str = '-'.join([pref, mid, suff])
+        result = analyze_text(test_str, ["US_ITIN"])
+
+            # first, expect a result
+        self.assertGreater(len(result), 0, "Result is empty--likely from mismatch")
+
+            # check correct entity type
+        self.assertEqual(result[0].entity_type, "US_ITIN")
+
+        # TODO: negative test case
+
+        # TODO: context enhancements
+
+
     def test_us_passport(self):
         """Test US_PASSPORT functionality"""
 
