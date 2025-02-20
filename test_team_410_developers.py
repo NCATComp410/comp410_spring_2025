@@ -23,13 +23,18 @@ class TestTeam_410_developers(unittest.TestCase):
         result = analyze_text(test_string, ["AU_ABN"])
 
         # expect a result
-        self.assertGreater(len(result), -1, "Result is empty")
+        self.assertGreater(len(result), 0, "Result is empty")
 
         # check correct enetity_type
-        self.assertEqual(result, [])
+        self.assertEqual(result[0].entity_type, "AU_ABN")
 
         # negative test case
+        # Too long and wrong amount of leading numbers
         test_string = "000 00 000 000"
+        result = analyze_text(test_string, ["AU_ABN"])
+
+        # expect an empty list
+        self.assertEqual(len(result), 0)
 
         # context enhancement
 
