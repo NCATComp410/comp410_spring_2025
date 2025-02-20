@@ -15,9 +15,9 @@ class TestTeam_410_developers(unittest.TestCase):
     def test_au_abn(self):
         """Test AU_ABN functionality"""
         # positive test case
-        prefix = "00"
-        middle = "000 000"
-        suffix = "000"
+        prefix = "51"
+        middle = "824 753"
+        suffix = "556"
 
         test_string = prefix + " " + middle + " "+ suffix
         result = analyze_text(test_string, ["AU_ABN"])
@@ -29,6 +29,7 @@ class TestTeam_410_developers(unittest.TestCase):
         self.assertEqual(result, [])
 
         # negative test case
+        test_string = "000 00 000 000"
 
         # context enhancement
 
