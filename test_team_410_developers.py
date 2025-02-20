@@ -1,6 +1,8 @@
 """Unit test file for team 410_developers"""
 import unittest
 from pii_scan import analyze_text, show_aggie_pride  # noqa 
+from presidio_analyzer import AnalyzerEngine
+from presidio_analyzer.predefined_recognizers import AuMedicareRecognizer
 
 
 class TestTeam_410_developers(unittest.TestCase):
@@ -20,6 +22,19 @@ class TestTeam_410_developers(unittest.TestCase):
 
     def test_au_medicare(self):
         """Test AU_MEDICARE functionality"""
+
+        # Positive Test Case 
+        test_str = "My medicare is: 5088193576"
+        result = analyze_text(test_str, ['AU_MEDICARE']) # Analyze_Text will find the Medicare & store associated information
+        self.assertGreater(len(result), 0) # Result should contain atleast one identified medicare number
+
+
+        # Negative Test Case 
+        test_str = "980-122-3241"
+        result = analyze_text(test_str, ['AU_MEDICARE'])
+        self.assertEqual(len(result), 0) # Invalid test string should result in an empty list 
+
+
 
     def test_au_tfn(self):
         """Test AU_TFN functionality"""
