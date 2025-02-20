@@ -44,6 +44,33 @@ class TestTeam_cmd(unittest.TestCase):
 
     def test_es_nif(self):
         """Test ES_NIF functionality"""
+        #positve test cases
+        nums = "12345678"
+        let = "Z"
+        base_str = "-".join([nums, let])
+        context_list = [""," documento nacional de identidad ", " DNI ", " NIF ", " identificación "]
+
+        for context in context_list:
+            test_str = base_str + context
+            result = analyze_text(test_str,["ES_NIF"])
+            self.assertGreater(len(result), 0, "result is")
+            self.assertEqual(result[0].entity_type, 'ES_NIF')
+
+        for context in context_list:
+            test_str = context + base_str
+            result = analyze_text(test_str,["ES_NIF"])
+            self.assertGreater(len(result), 0, "result is")
+            self.assertEqual(result[0].entity_type, 'ES_NIF')
+            
+        #negative test case
+        #invalid_nif = [too short, too long, too many letters, no letters, invaild checksum]
+        invalid_nif = ["345274-A","3452723224-A","3457274-AB","12345678","12345677-Z"]
+
+        for test_str in invalid_nif:
+            result = analyze_text(test_str,["ES_NIF"])
+            self.assertEqual(len(result), 0)
+
+        
 
     def test_fi_personal_identity_code(self):
         """Test FI_PERSONAL_IDENTITY_CODE functionality"""
