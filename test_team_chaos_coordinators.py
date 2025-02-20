@@ -24,6 +24,10 @@ class TestTeam_chaos_coordinators(unittest.TestCase):
         self.assertEqual(result[0].entity_type, 'CREDIT_CARD')
 
         #negative test case
+        test_str = '1234 5678 9101 1121'
+        result = analyze_text(test_str, ['CREDIT_CARD'])
+        #expect an empty list
+        self.assertEqual(len(result), 0)
 
         #context enhancement
         
