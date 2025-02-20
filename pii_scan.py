@@ -12,7 +12,8 @@ from presidio_analyzer.predefined_recognizers import (ItDriverLicenseRecognizer,
                                                       EsNifRecognizer,
                                                       PlPeselRecognizer,
                                                       FiPersonalIdentityCodeRecognizer,
-                                                      AbaRoutingRecognizer)
+                                                      AbaRoutingRecognizer,
+                                                      )
 
 from presidio_anonymizer import AnonymizerEngine
 import requests

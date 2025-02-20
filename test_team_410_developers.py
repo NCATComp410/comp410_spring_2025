@@ -1,6 +1,8 @@
 """Unit test file for team 410_developers"""
 import unittest
 from pii_scan import analyze_text, show_aggie_pride  # noqa 
+from presidio_analyzer import AnalyzerEngine
+from presidio_analyzer.predefined_recognizers import AuMedicareRecognizer
 
 
 class TestTeam_410_developers(unittest.TestCase):
