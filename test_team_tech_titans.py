@@ -25,27 +25,42 @@ class TestTeam_tech_titans(unittest.TestCase):
         pref = '902'
         mid = '63'
         suff = '3013'
-        test_str = '-'.join([pref, mid, suff])
-        result = analyze_text(test_str, ["US_ITIN"])
+        test_str_pos = '-'.join([pref, mid, suff])
+        result_pos = analyze_text(test_str_pos, ["US_ITIN"])
 
             # first, expect a result
-        self.assertGreater(len(result), 0, "Result is empty--likely from mismatch")
+        self.assertGreater(len(result_pos), 0, "Result is empty--likely from mismatch")
 
             # check correct entity type
-        self.assertEqual(result[0].entity_type, "US_ITIN")
+        self.assertEqual(result_pos[0].entity_type, "US_ITIN")
+        
+            # check score
+        self.assertEqual(result_pos[0].score, 0.5)
+    
+
+        # TODO: context enhancements
+            # add context word
+        test_str_pos = 'itin ' + test_str_pos
+
+            # repeat previous analyses
+        result_pos = analyze_text(test_str_pos, ["US_ITIN"])
+        self.assertGreater(len(result_pos), 0, "Result is empty--likely from mismatch")
+        self.assertEqual(result_pos[0].entity_type, "US_ITIN")
+
+            # Context bonus improves score from 0.5 (medium) to 0.85 (strong)
+        self.assertEqual(result_pos[0].score, 0.85)
+
 
         # TODO: negative test case
             # US ITINs MUST begin with a '9'
         pref = '802'
         mid = '63'
         suff = '3013'
-        test_str = '-'.join([pref, mid, suff])
-        result = analyze_text(test_str, ["US_ITIN"])
+        test_str_neg = '-'.join([pref, mid, suff])
+        result_neg = analyze_text(test_str_neg, ["US_ITIN"])
 
             # expect an empty list (match not found)
-        self.assertEqual(len(result), 0)
-
-        # TODO: context enhancements
+        self.assertEqual(len(result_neg), 0)
 
 
     def test_us_passport(self):
