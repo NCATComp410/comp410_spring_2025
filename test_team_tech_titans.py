@@ -35,6 +35,15 @@ class TestTeam_tech_titans(unittest.TestCase):
         self.assertEqual(result[0].entity_type, "US_ITIN")
 
         # TODO: negative test case
+            # US ITINs MUST begin with a '9'
+        pref = '802'
+        mid = '63'
+        suff = '3013'
+        test_str = '-'.join([pref, mid, suff])
+        result = analyze_text(test_str, ["US_ITIN"])
+
+            # expect an empty list (match not found)
+        self.assertEqual(len(result), 0)
 
         # TODO: context enhancements
 
