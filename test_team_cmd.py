@@ -17,7 +17,11 @@ class TestTeam_cmd(unittest.TestCase):
 
     def test_fi_personal_identity_code(self):
         """Test FI_PERSONAL_IDENTITY_CODE functionality"""
+        #Example FID:041404A123X
+        test_str = "150395-123X"
+        result = analyze_text(test_str,['FI_PERSONAL_IDENTITY_CODE'])
 
+        print(result)
     def test_iban_code(self):
         """Test IBAN_CODE functionality"""
 
