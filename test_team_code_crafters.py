@@ -43,7 +43,22 @@ class TestTeam_code_crafters(unittest.TestCase):
 
     def test_in_voter(self):
         """Test IN_VOTER functionality"""
-
+    # positive Test Case
+        letter_one = "A"
+        letter_two = "B"
+        letter_three = "C"
+        numbers = "1234567"
+        pos_test_one = ''.join((letter_one, letter_two, letter_three, numbers))
+        result = analyze_text(pos_test_one, ['IN_VOTER'])
+        self.assertEqual(result[0].entity_type, 'IN_VOTER')
+        self.assertGreater(len(result), 0, "Result is empty")
+        self.assertEqual(result[0].score, .4)
+        
+        # negative Test Case
+        # too short
+        neg_test_one = "ABC123456"
+        result = analyze_text(neg_test_one, ['IN_VOTER'])
+        self.assertEqual(len(result), 0)
 
 if __name__ == '__main__':
     unittest.main()
