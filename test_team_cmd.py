@@ -77,9 +77,29 @@ class TestTeam_cmd(unittest.TestCase):
 
     def test_iban_code(self):
         """Test IBAN_CODE functionality"""
+        
 
     def test_ip_address(self):
         """Test IP_ADDRESS functionality"""
+        #postive test case 
+        prefix = '8'
+        prefix1 = '8'
+        middle = '8'
+        suffix = '8'
+        test_str = '.'.join([prefix, prefix1, middle, suffix])
+        result = analyze_text(test_str, ['IP_ADDRESS'])
+        #expect a result
+        self.assertGreater(len(result), 0)
+        #check correct enity type 
+        self.assertEqual(result[0].entity_type, 'IP_ADDRESS')
+        
+        
+        #negative test case 
+        test_str = "I scored 192 points in the game."
+        result = analyze_text(test_str, ["IP_ADDRESS"])
+        self.assertEqual(len(result), 0, "False positive: A number was incorrectly detected as an IP address.")
+        #context test case 
+
 
 
 if __name__ == '__main__':
