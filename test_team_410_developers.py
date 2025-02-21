@@ -31,10 +31,13 @@ class TestTeam_410_developers(unittest.TestCase):
         self.assertEqual(result[0].entity_type,'AU_ACN')
 
         #negative test cases
-        # negative_auacns = ['123-456-789','123 456 7']#these each have an error        # negative_auacns =[ "123 456 7","abcdefghi","111 111 111"]#each has an error of some sort
-        # result = analyze_text(negative_auacns, ['AU_ACN'])
+        test_str = ['123-456-789','123 456 7']#these each have an error        # negative_auacns =[ "123 456 7","abcdefghi","111 111 111"]#each has an error of some sort
+        result = analyze_text(test_str, ['AU_ACN'])
         # #expect an empty list
-        # self.assertEqual(len(result), 0)
+        self.assertEqual(len(result), 0)
+
+        #context enhancement
+
 
     def test_au_medicare(self):
         """Test AU_MEDICARE functionality"""
