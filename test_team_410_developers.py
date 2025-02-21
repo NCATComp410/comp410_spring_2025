@@ -59,6 +59,38 @@ class TestTeam_410_developers(unittest.TestCase):
 
     def test_au_acn(self):
         """Test AU_ACN functionality"""
+        #postive test case
+        prefix = "001"
+        middle = "799"
+        suffix = "837"
+        test_str = prefix + " " + middle + " " + suffix
+        result = analyze_text(test_str,["AU_ACN"])
+ # expect result
+        self.assertGreater(len(result), 0, "Result is empty")
+ # check correct entity_type
+        self.assertEqual(result[0].entity_type, "AU_ACN")
+        #check the score 
+        self.assertEqual(result[0].score,1.0)
+
+#context enhancement
+#add context word
+        test_str = "australian company number " + test_str
+        result = analyze_text(test_str,["AU_ACN"])
+# expect result
+        self.assertGreater(len(result), 0, "Result is empty")
+# check correct entity_type
+        self.assertEqual(result[0].entity_type, "AU_ACN")
+ # check score
+        self.assertEqual(result[0].score, 1.0)
+
+        #negative test cases
+        test_str = "80 673 21"#error string
+        result = analyze_text(test_str, ["AU_ACN"])
+#expect empty list
+        self.assertEqual(len(result), 0)
+
+        
+
 
     def test_au_medicare(self):
         """Test AU_MEDICARE functionality"""
