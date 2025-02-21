@@ -30,16 +30,16 @@ class TestTeam_410_developers(unittest.TestCase):
         #check the score 
         self.assertEqual(result[0].score,1.0)
 
-        # #context enhancement
-        # #add context word
-        # test_str = test_str + 'acn','australian company number'
-        # result = analyze_text(test_str,['AU_ACN'])
-        # #expect a result
-        # self.assertGreater(len(result),0,'Result is empty')
-        # #check correct enitity_type
-        # self.assertEqual(result[0].entity_type,'AU_ACN')
-        # #check the score 
-        # self.assertEqual(result[0].score,1.0)
+#context enhancement
+#add context word
+        test_str = "australian company number " + test_str
+        result = analyze_text(test_str,["AU_ACN"])
+# expect result
+        self.assertGreater(len(result), 0, "Result is empty")
+# check correct entity_type
+        self.assertEqual(result[0].entity_type, "AU_ACN")
+ # check score
+        self.assertEqual(result[0].score, 1.0)
 
         #negative test cases
         test_str = "80 673 21"#error string
