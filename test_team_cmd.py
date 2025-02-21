@@ -80,25 +80,35 @@ class TestTeam_cmd(unittest.TestCase):
         
 
     def test_ip_address(self):
-        """Test IP_ADDRESS functionality"""
-        #postive test case 
-        prefix = '8'
-        prefix1 = '8'
-        middle = '8'
-        suffix = '8'
-        test_str = '.'.join([prefix, prefix1, middle, suffix])
-        result = analyze_text(test_str, ['IP_ADDRESS'])
-        #expect a result
-        self.assertGreater(len(result), 0)
-        #check correct enity type 
-        self.assertEqual(result[0].entity_type, 'IP_ADDRESS', "Empty Result")
-    
-        
-        #negative test case 
-        test_str = "195.25645556852.2"
-        result = analyze_text(test_str, ["IP_ADDRESS"])
-        self.assertEqual(len(result), 0, "A number was incorrectly detected as an IP address.")
-        #context test case 
+            """Test IP_ADDRESS functionality"""
+
+            # Positive test case: Detect valid public IP address
+            prefix = '8'
+            prefix1 = '8'
+            middle = '8'
+            suffix = '8'
+            test_str = '.'.join([prefix, prefix1, middle, suffix])  # "8.8.8.8"
+            result = analyze_text(test_str, ['IP_ADDRESS'])
+
+            self.assertGreater(len(result), 0)
+            self.assertEqual(result[0].entity_type, 'IP_ADDRESS')
+
+            # Negative test case: Ensure invalid IP is not detected
+            test_str = "195.25645556852.2"
+            result = analyze_text(test_str, ["IP_ADDRESS"])
+            self.assertEqual(len(result), 0)
+
+            # Context enhancement: Improve detection with context
+            test_str = "IP ADDRESS 8.8.8.8"
+            result = analyze_text(test_str, ['IP_ADDRESS'])
+
+            self.assertGreater(len(result), 0)
+            self.assertEqual(result[0].entity_type, 'IP_ADDRESS')
+            self.assertGreaterEqual(result[0].score, 0.5)
+
+           
+
+         
 
 
 
