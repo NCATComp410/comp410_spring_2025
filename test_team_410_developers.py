@@ -63,10 +63,6 @@ class TestTeam_410_developers(unittest.TestCase):
     def test_au_medicare(self):
         """Test AU_MEDICARE functionality"""
 
-    import unittest
-from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern, RecognizerResult
-
-class TestAU_TFN_Detection(unittest.TestCase):
     def setUp(self):
         """Initialize the Presidio Analyzer Engine with AU_TFN Recognizer."""
         self.analyzer = AnalyzerEngine()
@@ -101,6 +97,12 @@ class TestAU_TFN_Detection(unittest.TestCase):
                 # Check the correct entity type
                 self.assertEqual(results[0].entity_type, "AU_TFN", f"Incorrect entity detected in: {text}")
 
+              # negative case
+        #too short
+        test_str = '123456789'
+        result = analyze_text(test_str, ['AU_TFN'])
+        #expect a empty list
+        self.assertEqual(len(result), 0)  
 
 if __name__ == '__main__':
     unittest.main()
