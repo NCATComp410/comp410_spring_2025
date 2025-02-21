@@ -41,12 +41,11 @@ class TestTeam_410_developers(unittest.TestCase):
         # #check the score 
         # self.assertEqual(result[0].score,1.0)
 
-        # #negative test cases
-        # test_str = ['123-456-789','123 456 7']#these each have an error   
-        # result = analyze_text(test_str, ['AU_ACN'])
-
-        # # #expect an empty list
-        # self.assertEqual(len(result), 0)
+        #negative test cases
+        test_str = "80 673 21"#error string
+        result = analyze_text(test_str, ["AU_ACN"])
+#expect empty list
+        self.assertEqual(len(result), 0)
 
         
 
