@@ -1,4 +1,5 @@
 """Unit test file for team peak_performers"""
+import pytest
 import unittest
 from pii_scan import analyze_text, show_aggie_pride  # noqa 
 
@@ -17,11 +18,11 @@ class TestTeam_peak_performers(unittest.TestCase):
 
     def test_person(self):
         """Test PERSON functionality"""
-        #Positive Test Case: Detecting a Person entity
+          # Positive Test Case: Detecting a Person entity
         name = 'John'
         middle_N = 'Elliot'
         last_Name = 'Doe'
-        
+
         test_str = f"{name} {middle_N} {last_Name}"
         result = analyze_text(test_str, ['Person'])
 
@@ -34,13 +35,12 @@ class TestTeam_peak_performers(unittest.TestCase):
         # Check the confidence score
         self.assertEqual(result[0].score, 0.5)
 
-        #Negative Test Case 
+        # Negative Test Case 
         test_str = 'Joh'  # Too short to be detected as anything
         result = analyze_text(test_str, ['Person'])
 
         # Expect no results (empty list)
         self.assertEqual(len(result), 0, 'Expected no entity detection')
-
 
     def test_uk_nhs(self):
         """Test UK_NHS functionality"""
