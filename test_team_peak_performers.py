@@ -14,6 +14,16 @@ class TestTeam_peak_performers(unittest.TestCase):
 
     def test_location(self):
         """Test LOCATION functionality"""
+        # Positive Test Case
+        test_str = 'LONDON'
+        result = analyze_text(test_str, ['LOCATION'])
+        # expect result
+        self.assertGreater(len(result),0, 'Result Empty')
+        # Check entity_type
+        self.assertEqual(result[0].entity_type,'LOCATION')
+        # Negative Test Case
+
+        # Context Enhancement
 
     def test_person(self):
         """Test PERSON functionality"""
