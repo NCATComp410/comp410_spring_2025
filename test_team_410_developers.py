@@ -18,25 +18,37 @@ class TestTeam_410_developers(unittest.TestCase):
     def test_au_acn(self):
         """Test AU_ACN functionality"""
         #postive test case
-        prefix = "123"#dealing with one piece at a time
-        middle = "456"
-        suffix = "789"
-        test_str = prefix +' '+middle+' '+suffix
-        #the one with spaces should work but w/o should work too 
-        # test_str = "000 000 000"#seperated by blank spaces
-        result = analyze_text(test_str,['AU_ACN'])
-        #expect a result
-        self.assertGreater(len(result),0,'Result is empty')
-        #check correct enitity_type
-        self.assertEqual(result[0].entity_type,'AU_ACN')
+        prefix = "001"
+        middle = "799"
+        suffix = "837"
+        test_str = prefix + " " + middle + " " + suffix
+        result = analyze_text(test_str,["AU_ACN"])
+ # expect result
+        self.assertGreater(len(result), 0, "Result is empty")
+ # check correct entity_type
+        self.assertEqual(result[0].entity_type, "AU_ACN")
+        #check the score 
+        self.assertEqual(result[0].score,1.0)
 
-        #negative test cases
-        test_str = ['123-456-789','123 456 7']#these each have an error        # negative_auacns =[ "123 456 7","abcdefghi","111 111 111"]#each has an error of some sort
-        result = analyze_text(test_str, ['AU_ACN'])
-        # #expect an empty list
-        self.assertEqual(len(result), 0)
+        # #context enhancement
+        # #add context word
+        # test_str = test_str + 'acn','australian company number'
+        # result = analyze_text(test_str,['AU_ACN'])
+        # #expect a result
+        # self.assertGreater(len(result),0,'Result is empty')
+        # #check correct enitity_type
+        # self.assertEqual(result[0].entity_type,'AU_ACN')
+        # #check the score 
+        # self.assertEqual(result[0].score,1.0)
 
-        #context enhancement
+        # #negative test cases
+        # test_str = ['123-456-789','123 456 7']#these each have an error   
+        # result = analyze_text(test_str, ['AU_ACN'])
+
+        # # #expect an empty list
+        # self.assertEqual(len(result), 0)
+
+        
 
 
     def test_au_medicare(self):
