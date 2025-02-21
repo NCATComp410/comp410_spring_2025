@@ -31,6 +31,9 @@ class TestTeam_code_crafters(unittest.TestCase):
         self.assertEqual(result, [])
 
         #negative test case
+        test_string = 'K-14-DL-03'
+        result = analyze_text(test_string, ['IN_VEHICLE_REGISTRATION'])
+        self.assertEqual(len(result), 0)
         #self.assertGreater(len(result), 0, 'Result is empty')
        
               
