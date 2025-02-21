@@ -1,7 +1,6 @@
 """Unit test file for team peak_performers"""
 import unittest
-from pii_scan import analyze_text, show_aggie_pride  # noqa 
-
+from pii_scan import analyze_text, show_aggie_pride  # noqa
 
 class TestTeam_peak_performers(unittest.TestCase):
     """Test team peak_performers PII functions"""
@@ -21,9 +20,25 @@ class TestTeam_peak_performers(unittest.TestCase):
         self.assertGreater(len(result),0, 'Result Empty')
         # Check entity_type
         self.assertEqual(result[0].entity_type,'LOCATION')
-        # Negative Test Case
+        # check the score
+        self.assertEqual(result[0].score,0.85)
 
-        # Context Enhancement
+        # Context Enhance.
+        # adding 'location' as context word
+        test_str = 'City ' + test_str
+        result = analyze_text(test_str, ['LOCATION'])
+        # expect result
+        self.assertGreater(len(result),0, 'Result Empty')
+        # Check entity_type
+        self.assertEqual(result[0].entity_type,'LOCATION')
+        # check the score
+        self.assertEqual(result[0].score,0.85)
+
+        # Negative Test Case
+        # Too short
+        test_str = 'L'
+        result = analyze_text(test_str, ['LOCATION'])
+        self.assertEqual(len(result),0)
 
     def test_person(self):
         """Test PERSON functionality"""
