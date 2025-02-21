@@ -116,9 +116,65 @@ class TestTeam_tech_titans(unittest.TestCase):
     def test_us_itin(self):
         """Test US_ITIN functionality"""
 
+        # TODO: positive test case
+        pref = '902'
+        mid = '63'
+        suff = '3013'
+        test_str_pos = '-'.join([pref, mid, suff])
+        result_pos = analyze_text(test_str_pos, ["US_ITIN"])
+
+            # first, expect a result
+        self.assertGreater(len(result_pos), 0, "Result is empty--likely from mismatch")
+
+            # check correct entity type
+        self.assertEqual(result_pos[0].entity_type, "US_ITIN")
+        
+            # check score
+        self.assertEqual(result_pos[0].score, 0.5)
+    
+
+        # TODO: context enhancements
+            # add context word
+        test_str_pos = 'itin ' + test_str_pos
+
+            # repeat previous analyses
+        result_pos = analyze_text(test_str_pos, ["US_ITIN"])
+        self.assertGreater(len(result_pos), 0, "Result is empty--likely from mismatch")
+        self.assertEqual(result_pos[0].entity_type, "US_ITIN")
+
+            # Context bonus improves score from 0.5 (medium) to 0.85 (strong)
+        self.assertEqual(result_pos[0].score, 0.85)
+
+
+        # TODO: negative test case
+            # US ITINs MUST begin with a '9'
+        pref = '802'
+        mid = '63'
+        suff = '3013'
+        test_str_neg = '-'.join([pref, mid, suff])
+        result_neg = analyze_text(test_str_neg, ["US_ITIN"])
+
+            # expect an empty list (match not found)
+        self.assertEqual(len(result_neg), 0)
+
+
     def test_us_passport(self):
         """Test US_PASSPORT functionality"""
+        # positive test case
+        # Detect a valid US passport number
+        text = "My US passport number is 123456789."
+        results = analyze_text(text=text, entity_list=["US_PASSPORT"])
 
+        self.assertGreater(len(results), 0, "US Passport number should be detected.")
+        # negtative test case
+        # Ensure invalid numbers aren't detected
+        text = "My passcode is 98765432."  # Only 8 digits (invalid)
+        results = analyze_text(text=text, entity_list=["US_PASSPORT"])
+
+        self.assertEqual(len(results), 0, "Invalid passport number should not be detected.")
+
+
+        # context enhancement
 
 if __name__ == '__main__':
     unittest.main()
