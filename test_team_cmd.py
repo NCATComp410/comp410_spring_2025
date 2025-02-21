@@ -17,11 +17,33 @@ class TestTeam_cmd(unittest.TestCase):
 
     def test_fi_personal_identity_code(self):
         """Test FI_PERSONAL_IDENTITY_CODE functionality"""
-        #Example FID:041404A123X
-        test_str = "150395-123X"
-        result = analyze_text(test_str,['FI_PERSONAL_IDENTITY_CODE'])
+        
+        # Example FI PIDs:
+        #     VALID: 131052-308T
+        #     041404A123X
+        #     VALID: 150395-123K
+        
+        # positive test case
 
-        print(result)
+        date = "131052"
+        separator_char = '-'
+        indiv_num = '308T'
+        control_char = 'T'
+        test_str = date + separator_char+ indiv_num + control_char
+        
+        results = analyze_text(test_str,['FI_PERSONAL_IDENTITY_CODE'])
+        #expect a result
+        self.assertGreater(len(results),0,'Result is Empty :(')
+        #check correct entity type
+        self.assertEqual(results[0].entity_type,'FI_PERSONAL_IDENTITY_CODE')
+
+       # negative test case
+
+        test_str = "041404A123X"
+        results = analyze_text(test_str,['FI_PERSONAL_IDENTITY_CODE'])
+        self.assertEqual(len(results),0)
+       # context enhancement
+
     def test_iban_code(self):
         """Test IBAN_CODE functionality"""
 
