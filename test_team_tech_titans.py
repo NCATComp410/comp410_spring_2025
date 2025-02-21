@@ -160,7 +160,21 @@ class TestTeam_tech_titans(unittest.TestCase):
 
     def test_us_passport(self):
         """Test US_PASSPORT functionality"""
+        # positive test case
+        # Detect a valid US passport number
+        text = "My US passport number is 123456789."
+        results = analyze_text(text=text, entity_list=["US_PASSPORT"])
 
+        self.assertGreater(len(results), 0, "US Passport number should be detected.")
+        # negtative test case
+        # Ensure invalid numbers aren't detected
+        text = "My passcode is 98765432."  # Only 8 digits (invalid)
+        results = analyze_text(text=text, entity_list=["US_PASSPORT"])
+
+        self.assertEqual(len(results), 0, "Invalid passport number should not be detected.")
+
+
+        # context enhancement
 
 if __name__ == '__main__':
     unittest.main()
