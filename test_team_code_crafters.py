@@ -30,20 +30,15 @@ class TestTeam_code_crafters(unittest.TestCase):
         #expect a result
         self.assertEqual(result, [])
 
+
+        #check thre score
+        
+
         #negative test case
         test_string = 'K-14-DL-03'
         result = analyze_text(test_string, ['IN_VEHICLE_REGISTRATION'])
         self.assertEqual(len(result), 0)
-        #self.assertGreater(len(result), 0, 'Result is empty')
-       
-              
-        #negative test case
-        #too short
-        #test_string = 'KL-23-NU'
-    
         
-
-        # context enhancement
 
 
     def test_in_voter(self):
