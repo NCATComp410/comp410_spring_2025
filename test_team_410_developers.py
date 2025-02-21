@@ -109,8 +109,23 @@ class TestTeam_410_developers(unittest.TestCase):
 
 
     def test_au_tfn(self):
-        """Test AU_TFN functionality"""
+        """Test cases for AU_TFN detection"""
 
+        # Positive Case
+        valid_tfn = "123456782"  # Example valid TFN
+        result = analyze_text(valid_tfn, ["AU_TFN"])
+        
+        # Ensure a TFN is detected
+        self.assertGreater(len(result), 0, f"AU_TFN was not detected in: {valid_tfn}")
 
+        # Check the detected entity type
+        self.assertEqual(result[0].entity_type, "AU_TFN", f"Incorrect entity detected in: {valid_tfn}")
+
+        # Negative Case
+        invalid_tfns = "1234567"  # Too short
+        result = analyze_text(invalid_tfns, ["AU_TFN"])
+
+        # Ensure the result is an empty list (no TFN detected)
+        self.assertListEqual(result, [], f"Unexpected detection for invalid TFN: {invalid_tfns}")
 if __name__ == '__main__':
     unittest.main()
