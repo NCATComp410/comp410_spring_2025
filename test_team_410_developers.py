@@ -17,6 +17,23 @@ class TestTeam_410_developers(unittest.TestCase):
 
     def test_au_acn(self):
         """Test AU_ACN functionality"""
+        #postive test case
+        prefix = "123"#dealing with one piece at a time
+        middle = "456"
+        suffix = "789"
+        test_str = prefix +' '+middle+' '+suffix
+        postive_auacns = ["123 456 789", "123456789"]#the one with spaces should work but w/o should work too 
+       # test_str = "000 000 000"#seperated by blank spaces
+        result = analyze_text(acn,['AU_ACN'])
+        #expect a result
+        self.assertGreater(len(result),0,'Result is empty')
+        #check correct enitity_type
+        self.assertEqual(result[0].entity_type,'AU_ACN')
+
+        #negative test cases
+        # negative_auacns =[ "123 456 7","abcdefghi","111 111 111"]#each has an error of some sort
+        # result = analyze_text(acn, ['AU_ACN'])
+        # self.assertEqual(len(result), 0, f"Negative ACN found: {acn}")
 
     def test_au_medicare(self):
         """Test AU_MEDICARE functionality"""
