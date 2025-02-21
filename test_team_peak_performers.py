@@ -20,6 +20,20 @@ class TestTeam_peak_performers(unittest.TestCase):
 
     def test_uk_nhs(self):
         """Test UK_NHS functionality"""
+        #positive test case
+        prefix = 'n'
+        middle = 'h'
+        suffix = 's'
+        test_str = (prefix + middle + suffix).lower()
+        result = analyze_text(test_str,['UK_NHS'])
+        #expect a result
+        self.assertGreater(len(result), 0, 'Result is empty')
+        #check correct entity type
+        self.assertEqual(result[0].entity_type, 'UK_NHS')
+
+        #negative test case
+
+        #context enhancement
 
     def test_uk_nino(self):
         """Test UK_NINO functionality"""
