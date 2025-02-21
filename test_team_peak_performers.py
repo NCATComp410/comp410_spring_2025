@@ -25,12 +25,12 @@ class TestTeam_peak_performers(unittest.TestCase):
         """Test UK_NINO functionality"""
 
         # negative test case
+        #first 2 letters are not allowed as prefixes for NINO, last letter is not allowed as suffix for NINO
         test_string2 = 'YN 27 61 51 P'
         result2 = analyze_text(test_string2, ['UK_NINO'])
         
         self.assertEqual(result2.entity_type, 'UK_NINO')
 
-        # context enhancement
 
 if __name__ == '__main__':
     unittest.main()
