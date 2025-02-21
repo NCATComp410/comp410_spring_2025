@@ -86,6 +86,38 @@ class TestTeam_410_developers(unittest.TestCase):
 
     def test_au_acn(self):
         """Test AU_ACN functionality"""
+        #postive test case
+        prefix = "001"
+        middle = "799"
+        suffix = "837"
+        test_str = prefix + " " + middle + " " + suffix
+        result = analyze_text(test_str,["AU_ACN"])
+ # expect result
+        self.assertGreater(len(result), 0, "Result is empty")
+ # check correct entity_type
+        self.assertEqual(result[0].entity_type, "AU_ACN")
+        #check the score 
+        self.assertEqual(result[0].score,1.0)
+
+#context enhancement
+#add context word
+        test_str = "australian company number " + test_str
+        result = analyze_text(test_str,["AU_ACN"])
+# expect result
+        self.assertGreater(len(result), 0, "Result is empty")
+# check correct entity_type
+        self.assertEqual(result[0].entity_type, "AU_ACN")
+ # check score
+        self.assertEqual(result[0].score, 1.0)
+
+        #negative test cases
+        test_str = "80 673 21"#error string
+        result = analyze_text(test_str, ["AU_ACN"])
+#expect empty list
+        self.assertEqual(len(result), 0)
+
+        
+
 
     def test_au_medicare(self):
         """Test AU_MEDICARE functionality"""
@@ -104,8 +136,23 @@ class TestTeam_410_developers(unittest.TestCase):
 
 
     def test_au_tfn(self):
-        """Test AU_TFN functionality"""
+        """Test cases for AU_TFN detection"""
 
+        # Positive Case
+        valid_tfn = "123456782"  # Example valid TFN
+        result = analyze_text(valid_tfn, ["AU_TFN"])
+        
+        # Ensure a TFN is detected
+        self.assertGreater(len(result), 0, f"AU_TFN was not detected in: {valid_tfn}")
 
+        # Check the detected entity type
+        self.assertEqual(result[0].entity_type, "AU_TFN", f"Incorrect entity detected in: {valid_tfn}")
+
+        # Negative Case
+        invalid_tfns = "1234567"  # Too short
+        result = analyze_text(invalid_tfns, ["AU_TFN"])
+
+        # Ensure the result is an empty list (no TFN detected)
+        self.assertListEqual(result, [], f"Unexpected detection for invalid TFN: {invalid_tfns}")
 if __name__ == '__main__':
     unittest.main()
