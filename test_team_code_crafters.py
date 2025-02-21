@@ -20,6 +20,26 @@ class TestTeam_code_crafters(unittest.TestCase):
 
     def test_in_vehicle_registration(self):
         """Test IN_VEHICLE_REGISTRATION functionality"""
+        #Positive test caase
+        prefix = 'KL'
+        second = '13'
+        third = 'DL'
+        last = '1999'
+        test_string = prefix + '-'+second+'-'+third+'-'+last
+        result = analyze_text(test_string, ['IN_VEHICLE_REGISTRATION'])
+        #expect a result
+        self.assertEqual(result, [])
+
+
+        #check thre score
+        
+
+        #negative test case
+        test_string = 'K-14-DL-03'
+        result = analyze_text(test_string, ['IN_VEHICLE_REGISTRATION'])
+        self.assertEqual(len(result), 0)
+        
+
 
     def test_in_voter(self):
         """Test IN_VOTER functionality"""
