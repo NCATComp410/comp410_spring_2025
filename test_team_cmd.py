@@ -91,13 +91,13 @@ class TestTeam_cmd(unittest.TestCase):
         #expect a result
         self.assertGreater(len(result), 0)
         #check correct enity type 
-        self.assertEqual(result[0].entity_type, 'IP_ADDRESS')
-        
+        self.assertEqual(result[0].entity_type, 'IP_ADDRESS', "Empty Result")
+    
         
         #negative test case 
-        test_str = "I scored 192 points in the game."
+        test_str = "195.25645556852.2"
         result = analyze_text(test_str, ["IP_ADDRESS"])
-        self.assertEqual(len(result), 0, "False positive: A number was incorrectly detected as an IP address.")
+        self.assertEqual(len(result), 0, "A number was incorrectly detected as an IP address.")
         #context test case 
 
 
