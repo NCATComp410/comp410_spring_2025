@@ -63,46 +63,24 @@ class TestTeam_410_developers(unittest.TestCase):
     def test_au_medicare(self):
         """Test AU_MEDICARE functionality"""
 
-    def setUp(self):
-        """Initialize the Presidio Analyzer Engine with AU_TFN Recognizer."""
-        self.analyzer = AnalyzerEngine()
-
-        # Define a pattern for AU TFN (9 digits, with or without spaces/hyphens)
-        tfn_pattern = Pattern(name="AU_TFN", regex=r"\b\d{3}[- ]?\d{3}[- ]?\d{3}\b", score=0.8)
-
-        # Register a custom recognizer for AU_TFN
-        self.au_tfn_recognizer = PatternRecognizer(supported_entity="AU_TFN", patterns=[tfn_pattern])
-        self.analyzer.registry.add_recognizer(self.au_tfn_recognizer)
-
     def test_au_tfn(self):
-        #positive test case
-        """Test AU_TFN detection (Positive Test Case)"""
-        test_cases = [
-            "My tax file number is 123-456-789",
-            "Here is my TFN: 123 456 789",
-            "TFN: 123456789 should be detected.",
-            "AU TFN: 987-654-321 is a valid identifier."
-        ]
+        """Test cases for AU_TFN detection"""
 
-        for text in test_cases:
-            with self.subTest(text=text):
-                results = self.analyzer.analyze(text=text, entities=["AU_TFN"], language="en")
-                
-                # Print result for debugging
-                print(f"Test case: {text} → Results: {results}")
+        # Positive Case
+        valid_tfn = "123456782"  # Example valid TFN
+        result = analyze_text(valid_tfn, ["AU_TFN"])
+        
+        # Ensure a TFN is detected
+        self.assertGreater(len(result), 0, f"AU_TFN was not detected in: {valid_tfn}")
 
-                # Ensure at least one result is found
-                self.assertGreater(len(results), 0, f"AU_TFN was not detected in: {text}")
+        # Check the detected entity type
+        self.assertEqual(result[0].entity_type, "AU_TFN", f"Incorrect entity detected in: {valid_tfn}")
 
-                # Check the correct entity type
-                self.assertEqual(results[0].entity_type, "AU_TFN", f"Incorrect entity detected in: {text}")
+        # Negative Case
+        invalid_tfns = "1234567"  # Too short
+        result = analyze_text(invalid_tfns, ["AU_TFN"])
 
-              # negative case
-        #too short
-        test_str = '123456789'
-        result = analyze_text(test_str, ['AU_TFN'])
-        #expect a empty list
-        self.assertEqual(len(result), 0)  
-
+        # Ensure the result is an empty list (no TFN detected)
+        self.assertListEqual(result, [], f"Unexpected detection for invalid TFN: {invalid_tfns}")
 if __name__ == '__main__':
     unittest.main()
