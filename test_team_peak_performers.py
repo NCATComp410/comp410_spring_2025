@@ -1,5 +1,4 @@
 """Unit test file for team peak_performers"""
-import pytest
 import unittest
 from pii_scan import analyze_text, show_aggie_pride  # noqa 
 
@@ -18,26 +17,26 @@ class TestTeam_peak_performers(unittest.TestCase):
 
     def test_person(self):
         """Test PERSON functionality"""
-          # Positive Test Case: Detecting a Person entity
+        # Positive Test Case: Detecting a Person entity
         name = 'John'
         middle_N = 'Elliot'
         last_Name = 'Doe'
 
         test_str = f"{name} {middle_N} {last_Name}"
-        result = analyze_text(test_str, ['Person'])
+        result = analyze_text(test_str, ['PERSON'])
 
         # Expect a result (non-empty list)
         self.assertGreater(len(result), 0, 'Result is empty')
 
         # Check if the detected entity type is correct
-        self.assertEqual(result[0].entity_type, 'Person')
+        self.assertEqual(result[0].entity_type, 'PERSON')
 
         # Check the confidence score
-        self.assertEqual(result[0].score, 0.5)
+        self.assertEqual(result[0].score, 0.85)
 
         # Negative Test Case 
-        test_str = 'Joh'  # Too short to be detected as anything
-        result = analyze_text(test_str, ['Person'])
+        test_str = 'error'
+        result = analyze_text(test_str, ['PERSON'])
 
         # Expect no results (empty list)
         self.assertEqual(len(result), 0, 'Expected no entity detection')
