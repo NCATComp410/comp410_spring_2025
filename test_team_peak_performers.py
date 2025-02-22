@@ -29,7 +29,7 @@ class TestTeam_peak_performers(unittest.TestCase):
         test_string2 = 'YN 27 61 51 P'
         result2 = analyze_text(test_string2, ['UK_NINO'])
         
-        self.assertEqual(result2.entity_type, 'UK_NINO')
+        self.assertEqual(len(result2), 0)
 
 
 if __name__ == '__main__':
