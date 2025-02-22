@@ -1,6 +1,6 @@
 """Unit test file for team cmd"""
 import unittest
-from pii_scan import analyze_text, show_aggie_pride  # noqa
+from pii_scan import analyze_text, show_aggie_pride  # noqa 
 
 
 class TestTeam_cmd(unittest.TestCase):
@@ -61,7 +61,7 @@ class TestTeam_cmd(unittest.TestCase):
             result = analyze_text(test_str,["ES_NIF"])
             self.assertGreater(len(result), 0, "result is")
             self.assertEqual(result[0].entity_type, 'ES_NIF')
-            
+
         #negative test case
         #invalid_nif = [too short, too long, too many letters, no letters, invaild checksum]
         invalid_nif = ["345274-A","3452723224-A","3457274-AB","12345678","12345677-Z"]
@@ -70,10 +70,10 @@ class TestTeam_cmd(unittest.TestCase):
             result = analyze_text(test_str,["ES_NIF"])
             self.assertEqual(len(result), 0)
 
-        
+
 
     def test_fi_personal_identity_code(self):
-        """Test FI_PERSONAL_IDENTITY_CODE functionality"""  
+        """Test FI_PERSONAL_IDENTITY_CODE functionality"""
         # Example FI PIDs:
         #     VALID: 131052-308T
         #     041404A123X
@@ -116,38 +116,81 @@ class TestTeam_cmd(unittest.TestCase):
 
     def test_iban_code(self):
         """Test IBAN_CODE functionality"""
-        
+        pos_test_cases = [
+                            "DE44500105175407324931",
+                            "FR7630006000011234567890189",
+                            "ES9121000418450200051332",
+                            "IT60X0542811101000000123456"
+                        ]
+        neg_test_cases = [
+                        "DE4450010517540732",  # Too short
+                        "FR7630006000011234567890189123",  # Too long
+                        "IT60X0542811101O00000123456",  # Non-numeric character (O instead of 0)
+                        "NL91ABNA!417164300",  # Special character included (!)
+                        "GB29 NW BK60161331926819",  # Extra spaces
+                        "SA0280000000608010167519",  # Incorrect check digits
+                        "AE070331234567890123546"  # Swapped digits
+                    ]
+
+        #without context tests
+        for x in pos_test_cases:
+            results = analyze_text(f"{x}",["IBAN_CODE"])
+
+            self.assertGreater(len(results),0) #asserting a full list for a detected code
+
+            self.assertGreaterEqual(results[0].score, 0.5) #valid IBAN
+            self.assertEqual(results[0].entity_type, 'IBAN_CODE') #validating entity type
+
+        for x in neg_test_cases:
+            results = analyze_text(f"{x}",["IBAN_CODE"])
+            self.assertEqual(len(results),0) #asserting an empty list for an undetected code
+
+
+        #with context tests
+        for x in pos_test_cases:
+            results = analyze_text(f"IBAN CODE: {x}",["IBAN_CODE"])
+
+            self.assertGreater(len(results),0) #asserting a full list for a detected code
+
+            self.assertEqual(results[0].score, 1) #valid IBAN
+            self.assertEqual(results[0].entity_type, 'IBAN_CODE') #validating entity type
+
+        for x in neg_test_cases:
+            results = analyze_text(f"IBAN CODE: {x}",["IBAN_CODE"])
+            self.assertEqual(len(results),0) #asserting an empty list for an undetected code
+
+
 
     def test_ip_address(self):
-            """Test IP_ADDRESS functionality"""
+        """Test IP_ADDRESS functionality"""
 
-            # Positive test case: Detect valid public IP address
-            prefix = '8'
-            prefix1 = '8'
-            middle = '8'
-            suffix = '8'
-            test_str = '.'.join([prefix, prefix1, middle, suffix])  # "8.8.8.8"
-            result = analyze_text(test_str, ['IP_ADDRESS'])
+        # Positive test case: Detect valid public IP address
+        prefix = '8'
+        prefix1 = '8'
+        middle = '8'
+        suffix = '8'
+        test_str = '.'.join([prefix, prefix1, middle, suffix])  # "8.8.8.8"
+        result = analyze_text(test_str, ['IP_ADDRESS'])
 
-            self.assertGreater(len(result), 0)
-            self.assertEqual(result[0].entity_type, 'IP_ADDRESS')
+        self.assertGreater(len(result), 0)
+        self.assertEqual(result[0].entity_type, 'IP_ADDRESS')
 
-            # Negative test case: Ensure invalid IP is not detected
-            test_str = "195.25645556852.2"
-            result = analyze_text(test_str, ["IP_ADDRESS"])
-            self.assertEqual(len(result), 0)
+        # Negative test case: Ensure invalid IP is not detected
+        test_str = "195.25645556852.2"
+        result = analyze_text(test_str, ["IP_ADDRESS"])
+        self.assertEqual(len(result), 0)
 
-            # Context enhancement: Improve detection with context
-            test_str = "IP ADDRESS 8.8.8.8"
-            result = analyze_text(test_str, ['IP_ADDRESS'])
+        # Context enhancement: Improve detection with context
+        test_str = "IP ADDRESS 8.8.8.8"
+        result = analyze_text(test_str, ['IP_ADDRESS'])
 
-            self.assertGreater(len(result), 0)
-            self.assertEqual(result[0].entity_type, 'IP_ADDRESS')
-            self.assertGreaterEqual(result[0].score, 0.5)
+        self.assertGreater(len(result), 0)
+        self.assertEqual(result[0].entity_type, 'IP_ADDRESS')
+        self.assertGreaterEqual(result[0].score, 0.5)
 
-           
 
-         
+
+
 
 
 
