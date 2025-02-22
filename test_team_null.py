@@ -1,37 +1,47 @@
+"""Unit test file for team null"""
 import unittest
 from pii_scan import analyze_text, show_aggie_pride  # noqa
 
 
-class TestInPanRecognizer(unittest.TestCase):
-    """Test InPanRecognizer functionality"""
-
+class TestTeam_null(unittest.TestCase):
+    """Test team null PII functions"""
     def test_show_aggie_pride(self):
         """Test to make sure Aggie Pride is shown correctly"""
         self.assertEqual(show_aggie_pride(), "Aggie Pride - Worldwide")
 
-    def test_in_pan_positive(self):
-        """Test PAN detection with a valid PAN number"""
-        test_str = "ABCDE1234F"
-        result = analyze_text(test_str, ['IN_PAN'])
+    def test_us_ssn(self):
+        """Test US_SSN functionality"""
+        # positive test case
+        prefix = '123'
+        middle = '12'
+        suffix = '1234'
+        test_str = prefix + '-' + middle + '-' + suffix
+        result = analyze_text(test_str, ['US_SSN'])
+        # expect a result
         self.assertGreater(len(result), 0, 'Result is empty')
-        self.assertEqual(result[0].entity_type, 'IN_PAN')
-        self.assertGreaterEqual(result[0].score, 0.6)
+        # check correct entity_type
+        self.assertEqual(result[0].entity_type, 'US_SSN')
+        # check the score
+        self.assertEqual(result[0].score, 0.5)
 
-    def test_in_pan_with_context(self):
-        """Test PAN detection with context words"""
-        test_str = "permanent account number ABCDE1234F"
-        result = analyze_text(test_str, ['IN_PAN'])
-        print("Context Test Result:", result[0])  # Debug print to inspect the score
+        # context enhancement
+        # add context word
+        test_str = 'ssn ' + test_str
+        result = analyze_text(test_str, ['US_SSN'])
+        # expect a result
         self.assertGreater(len(result), 0, 'Result is empty')
-        self.assertEqual(result[0].entity_type, 'IN_PAN')
-        # Adjusted score to match actual behavior
-        self.assertGreaterEqual(result[0].score, 0.6)
+        # check correct entity_type
+        self.assertEqual(result[0].entity_type, 'US_SSN')
+        # check the score
+        self.assertEqual(result[0].score, 0.85)
 
-    def test_in_pan_negative(self):
-        """Test PAN detection with invalid PAN number"""
-        test_str = "ABC1234F"  # Too short and invalid format
-        result = analyze_text(test_str, ['IN_PAN'])
-        self.assertEqual(len(result), 0, 'Result should be empty for invalid PAN')
+        # negative test case
+        # too short
+        test_str = '123-45-67'
+        result = analyze_text(test_str, ['US_SSN'])
+        # expect an empty list
+        self.assertEqual(len(result), 0)
+
 
 
 if __name__ == '__main__':
