@@ -12,17 +12,17 @@ class TestTeam_peak_performers(unittest.TestCase):
     def test_phone_number(self):
         """Test PHONE_NUMBER functionality"""
 
-    def test_location(self):
-        """Test LOCATION functionality"""
+        # positive test case
+        prefix = '123'
+        middle = '456'
+        suffix = '7890'
+        test_str = prefix + '-' + middle + '-' + suffix
+        result = analyze_text(test_str, ['PHONE_NUMBER'])
 
-    def test_person(self):
-        """Test PERSON functionality"""
-
-    def test_uk_nhs(self):
-        """Test UK_NHS functionality"""
-
-    def test_uk_nino(self):
-        """Test UK_NINO functionality"""
+     # negative test case
+        # too long
+        test_str = '123-456-78999'
+        result = analyze_text(test_str, ['PHONE_NUMBER'])
 
 
 if __name__ == '__main__':
