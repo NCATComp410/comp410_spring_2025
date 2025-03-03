@@ -55,6 +55,9 @@ registry.add_recognizer(AbaRoutingRecognizer(supported_language='en'))
 analyzer = AnalyzerEngine(registry=registry, log_decision_process=False)
 anonymizer = AnonymizerEngine()
 
+# verbose flag for showing extra details
+verbose_flag = False
+
 
 def show_aggie_pride():
     """Show Aggie Pride"""
@@ -107,7 +110,9 @@ def analyze_text(text: str, entity_list: list, show_supported=False) -> list[str
                                entities=entity_list,
                                language='en',
                                return_decision_process=True)  # return decision process details
-
+    if verbose_flag:
+        for result in results:
+            print(f"Entity: {result.entity_type}, Start: {result.start}, End: {result.end}, Score: {result.score}")
     return results
 
 
@@ -136,4 +141,6 @@ def read_data() -> list:
 
 if __name__ == '__main__':
     print(show_aggie_pride())
-    # anonymize_data(read_data())
+    # turn on verbose output for analysis
+    verbose_flag = True
+    anonymize_data(read_data())
