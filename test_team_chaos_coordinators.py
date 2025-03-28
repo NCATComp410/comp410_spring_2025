@@ -67,8 +67,26 @@ class TestTeam_chaos_coordinators(unittest.TestCase):
     def test_date_time(self):
         """Test DATE_TIME functionality"""
 
+
+
+
     def test_email_address(self):
         """Test EMAIL_ADDRESS functionality"""
+         #positive test case
+        test_str = 'Contact me at john.doe@gmail.com for more information'
+        result = analyze_text(test_str, ['EMAIL_ADDRESS'])
+        #check correct entity_type
+        self.assertEqual(result[0].entity_type, 'EMAIL_ADDRESS')
+
+        #Expect a result
+        self.assertGreater(len(result), 0, 'Result is empty')
+
+        #negative test case
+        test_str = 'Contact me at john.doe@company.ai.main for more information'
+        result = analyze_text(test_str, ['EMAIL_ADDRESS'])
+        print(result)
+
+        
 
     def test_medical_license(self):
         """Test MEDICAL_LICENSE functionality"""
